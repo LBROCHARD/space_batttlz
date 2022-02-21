@@ -6,6 +6,8 @@ public class player : MonoBehaviour
 {
     public CharacterController controller;
 
+    public GameObject MousePositionObject;
+
     public float speed = 6f;
 
     public float turnSmoothTime = 0.2f;
@@ -20,18 +22,24 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if( direction.magnitude >= 0.1f){
+        transform.position = Vector3.MoveTowards(transform.position, MousePositionObject.transform.position, 0.1f);
+        transform.LookAt(MousePositionObject.transform);
 
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f); 
+        // float horizontal = Input.GetAxisRaw("Horizontal");
+        // float vertical = Input.GetAxisRaw("Vertical");
+        // Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-            controller.Move(direction * speed * Time.deltaTime);
-        }
+        // // Vector3 direction = mouseObjectPosition.normalized;
+
+        // if( direction.magnitude >= 0.1f){
+
+            // float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            // transform.rotation = Quaternion.Euler(0f, angle, 0f); 
+
+            // controller.Move(direction * speed * Time.deltaTime);
+        // }
 
     }
 }
