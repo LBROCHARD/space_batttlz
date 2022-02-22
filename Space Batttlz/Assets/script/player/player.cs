@@ -23,6 +23,8 @@ public class player : MonoBehaviour
     void Update()
     {
 
+        // Vector3 direction = new Vector3(MousePositionObject.transform.position.x, 0f, vertical).normalized;
+
         transform.position = Vector3.MoveTowards(transform.position, MousePositionObject.transform.position, 0.1f);
         transform.LookAt(MousePositionObject.transform);
 
