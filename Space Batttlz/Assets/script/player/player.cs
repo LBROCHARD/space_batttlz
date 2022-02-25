@@ -6,9 +6,11 @@ public class player : MonoBehaviour
 {
     public CharacterController controller;
 
-    public GameObject MousePositionObject;
+    public GameObject mousePositionObject;
 
-    public float speed = 6f;
+    private float speed = 0f;
+    // private float targetedSpeed = 0f;
+    public float maxSpeed = 10f;
 
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
@@ -23,23 +25,37 @@ public class player : MonoBehaviour
     void Update()
     {
 
-        transform.position = Vector3.MoveTowards(transform.position, MousePositionObject.transform.position, 0.1f);
-        transform.LookAt(MousePositionObject.transform);
-
-        // float horizontal = Input.GetAxisRaw("Horizontal");
-        // float vertical = Input.GetAxisRaw("Vertical");
-        // Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        // // Vector3 direction = mouseObjectPosition.normalized;
-
-        // if( direction.magnitude >= 0.1f){
-
-            // float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            // transform.rotation = Quaternion.Euler(0f, angle, 0f); 
-
-            // controller.Move(direction * speed * Time.deltaTime);
+        // if (Input.GetKeyDown("space"))
+        // {
+        //     //transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 100) );
+        //     targetedSpeed = maxSpeed;
+        
+        // } 
+        // else if (Input.GetKey("space") == false)
+        // {
+        //     targetedSpeed = 0f;
         // }
+
+        transform.LookAt(mousePositionObject.transform);
+
+
+    }
+
+    void FixedUpdate() 
+    {
+
+        // speed = Mathf.SmoothStep(speed, targetedSpeed, 5 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
+        
+
+        if (Input.GetKey("space"))
+        {
+            speed = Mathf.SmoothStep(speed, maxSpeed, 3 * Time.deltaTime);
+        }
+        else if (Input.GetKey("space") == false)
+        {
+            speed = Mathf.SmoothStep(speed, 0f, 8 * Time.deltaTime);
+        }
 
     }
 }
