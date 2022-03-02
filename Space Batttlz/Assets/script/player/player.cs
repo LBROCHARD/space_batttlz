@@ -36,14 +36,13 @@ public class player : MonoBehaviour
         //     targetedSpeed = 0f;
         // }
 
-        transform.LookAt(mousePositionObject.transform);
-
-
     }
 
     void FixedUpdate() 
     {
 
+        transform.LookAt(mousePositionObject.transform);
+        
         // speed = Mathf.SmoothStep(speed, targetedSpeed, 5 * Time.deltaTime);
         transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
         
