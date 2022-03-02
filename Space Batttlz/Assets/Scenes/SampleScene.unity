@@ -710,6 +710,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 913718056}
+    - target: {fileID: 101660813680702275, guid: 6aa5a9a54c6307246b67f462044d0052, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 101660813680702284, guid: 6aa5a9a54c6307246b67f462044d0052, type: 3}
       propertyPath: m_Name
       value: cameraPositionObject
