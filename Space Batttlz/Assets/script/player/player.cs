@@ -41,10 +41,19 @@ public class player : MonoBehaviour
     void FixedUpdate() 
     {
 
-        transform.LookAt(mousePositionObject.transform);
-        
+        Vector3 direction = mousePositionObject.transform.position - transform.position;
+        //Debug.Log("direction =" + direction);
+        Quaternion toRotation = Quaternion.LookRotation(transform.forward, direction);
+        Debug.Log("toRotation =" + toRotation);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1 * Time.deltaTime);
+
+        //transform.LookAt(mousePositionObject.transform);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0.0f, 100f, 0.0f), 1 * Time.deltaTime);
+
         // speed = Mathf.SmoothStep(speed, targetedSpeed, 5 * Time.deltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
+        //DAGOOD//transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
+        transform.position = Vector3.MoveTowards(transform.position, direction, (speed / 10) );
         
 
         if (Input.GetKey("space"))
