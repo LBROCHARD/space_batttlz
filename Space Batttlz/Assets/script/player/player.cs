@@ -12,10 +12,11 @@ public class player : MonoBehaviour
     // vitesse actuelle (privé)
     private float speed = 0f;
     // vitesse du player
-    public float maxSpeed = 10f;
-    // valeurs de vitesse d'accélération et de décélération
-    public float acceleration = 3f;
-    public float deceleration = 8f;
+    [SerializeField] private float maxSpeed = 10f;
+    // valeurs de vitesse d'accélération, de décélération et de rotation
+    [SerializeField] private float acceleration = 3f;
+    [SerializeField] private float deceleration = 8f;
+    [SerializeField] private float rotationSpeed = 300f;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class player : MonoBehaviour
         // calcule la différence entre la position du "mousePositionObject" et du player
         var toRotation = Quaternion.LookRotation(mousePositionObject.transform.position - transform.position);
         // tourne vers "toRotation"
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 300 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 
         // /!\ en chantier /!\ mais grosso modo ça tourne le joueur vers la rotation créée plus haut
         //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.deltaTime);
