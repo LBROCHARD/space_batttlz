@@ -70,7 +70,7 @@ public class player : MonoBehaviour
         {
             // tant que espace n'est pas préssé, "speed" devient lentement 0 à la vitesse de 8 * Time.deltaTime
             speed = Mathf.SmoothStep(speed, 0f, 8 * Time.deltaTime);
-        }
+        } 
 
     }
 }
