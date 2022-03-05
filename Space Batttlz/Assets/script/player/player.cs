@@ -29,27 +29,34 @@ public class player : MonoBehaviour
         // ---- rotation vers mousePositionObject ----
 
         // Vector3 qui correspond à la direction en prenant la position du "mousePositionObject" et soustrait la position du player
-        Vector3 direction = mousePositionObject.transform.position - transform.position;
+        //Vector3 direction = mousePositionObject.transform.position - transform.position;
         //Debug.Log("direction =" + direction);
 
         // renvoie une rotation créée par le devant actuel et la direction a pointer
-        Quaternion toRotation = Quaternion.LookRotation(transform.forward, direction);
-        Debug.Log("toRotation =" + toRotation);
+        //Quaternion toRotation = Quaternion.LookRotation(transform.forward, direction);
+        // Debug.Log( "dir =" + direction + "forwrd =" + transform.forward + "toRotation =" + toRotation);
+
+        // calcule la différence entre la position du "mousePositionObject" et du player
+        var toRotation = Quaternion.LookRotation(mousePositionObject.transform.position - transform.position);
+        // tourne vers "toRotation"
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 300 * Time.deltaTime);
 
         // /!\ en chantier /!\ mais grosso modo ça tourne le joueur vers la rotation créée plus haut
         //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.deltaTime);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1 * Time.deltaTime);
-        //transform.LookAt(mousePositionObject.transform);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1 * Time.deltaTime);
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0.0f, 100f, 0.0f), 1 * Time.deltaTime);
+
+        //ligne qui fonctionne pour se tourner d'un coup vers l'objet
+        //transform.LookAt(mousePositionObject.transform);
 
 
         // ---- déplacement vers mousePositionObject ----
 
-        // ˯˯bonne ligne pour le déplacement
+        // bonne ligne pour le déplacement
         //transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
         
-        // ˯˯ligne pour le déplacement modifié
-        transform.position = Vector3.MoveTowards(transform.position, direction, (speed / 10) );
+        // ligne pour le déplacement modifié
+        transform.position = Vector3.MoveTowards(transform.position, transform.forward, (speed / 10) );
         
 
         // ---- accélération et décélération ---- 
