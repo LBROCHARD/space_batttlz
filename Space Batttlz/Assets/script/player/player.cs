@@ -13,6 +13,9 @@ public class player : MonoBehaviour
     private float speed = 0f;
     // vitesse du player
     public float maxSpeed = 10f;
+    // valeurs de vitesse d'accélération et de décélération
+    public float acceleration = 3f;
+    public float deceleration = 8f;
 
     void Start()
     {
@@ -55,8 +58,11 @@ public class player : MonoBehaviour
         // bonne ligne pour le déplacement
         //transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
         
+        // create a forward vector
+        Vector3 forward = transform.position + transform.forward;
+
         // ligne pour le déplacement modifié
-        transform.position = Vector3.MoveTowards(transform.position, transform.forward, (speed / 10) );
+        transform.position = Vector3.MoveTowards(transform.position, forward, (speed / 10) );
         
 
         // ---- accélération et décélération ---- 
@@ -64,12 +70,12 @@ public class player : MonoBehaviour
         if (Input.GetKey("space"))
         {
             // tant que espace est préssé, "speed" augmente lentement vers "maxSpeed" à la vitesse de 3 * Time.deltaTime
-            speed = Mathf.SmoothStep(speed, maxSpeed, 3 * Time.deltaTime);
+            speed = Mathf.SmoothStep(speed, maxSpeed, acceleration * Time.deltaTime);
         }
         else if (Input.GetKey("space") == false)
         {
             // tant que espace n'est pas préssé, "speed" devient lentement 0 à la vitesse de 8 * Time.deltaTime
-            speed = Mathf.SmoothStep(speed, 0f, 8 * Time.deltaTime);
+            speed = Mathf.SmoothStep(speed, 0f, deceleration * Time.deltaTime);
         } 
 
     }
