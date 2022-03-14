@@ -16,13 +16,6 @@ public class player : MonoBehaviour
     float turnSmoothVelocity;
 
     public GameObject Rocket;
-    public string shootKey = "e";
-
-    void rocketSpawn() //fait spawner une entité rocket à l'emplacement du joueur
-    {
-        Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
-        GameObject a = Instantiate(Rocket, transform.position, Quaternion.Euler(spawnRotation));
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -68,5 +61,12 @@ public class player : MonoBehaviour
             speed = Mathf.SmoothStep(speed, 0f, 8 * Time.deltaTime);
         }
 
+    }
+
+    void rocketSpawn() //fait spawner une entité rocket à l'emplacement du joueur
+    {
+        Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);
+        Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
+        GameObject a = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
     }
 }
