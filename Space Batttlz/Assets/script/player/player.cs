@@ -17,7 +17,10 @@ public class player : MonoBehaviour
     [SerializeField] private float acceleration = 3f;
     [SerializeField] private float deceleration = 8f;
     [SerializeField] private float rotationSpeed = 300f;
+    // référence à l'objet rocket
+    public GameObject Rocket;
 
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -25,7 +28,10 @@ public class player : MonoBehaviour
 
     void Update()
     {
-
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            rocketSpawn();
+        }
     }
 
     void FixedUpdate() 
@@ -71,5 +77,12 @@ public class player : MonoBehaviour
             speed = Mathf.SmoothStep(speed, 0f, deceleration * Time.deltaTime);
         } 
 
+    }
+
+    void rocketSpawn() //fait spawner une entité rocket à l'emplacement du joueur
+    {
+        Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);
+        Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
+        GameObject a = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
     }
 }
