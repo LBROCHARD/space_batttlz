@@ -61,7 +61,7 @@ public class player : MonoBehaviour
 
 
         // ligne pour le déplacement modifié
-        transform.position = Vector3.MoveTowards(transform.position, betterForward, (speed / 10) );
+        transform.position = Vector3.MoveTowards(transform.position, betterForward, speed  * Time.deltaTime );
         
 
         // ---- accélération et décélération ---- 
