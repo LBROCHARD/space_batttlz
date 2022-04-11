@@ -7,9 +7,11 @@ public class rocket : MonoBehaviour
     public float rocketSpeed = 10f;
     Collider rocketCollider;
     public float afterSpawnNoCollideTime = 0.5f;
+    private ParticleSystem rocketParticle;
 
     void Start() // Start is called before the first frame update
     {
+        rocketParticle = GetComponent<ParticleSystem>();
         rocketCollider = GetComponent<Collider>();
         rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
         StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
@@ -35,6 +37,7 @@ public class rocket : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collision !");
+        rocketParticle.Play();
         Destroy(gameObject);
     }
 
