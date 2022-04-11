@@ -9,9 +9,13 @@ public class rocket : MonoBehaviour
     public float afterSpawnNoCollideTime = 0.5f;
     private ParticleSystem rocketParticle;
 
+    private bool canMove = true;
+    private float timeBeforePerish = 0f;
+
     void Start() // Start is called before the first frame update
     {
         rocketParticle = GetComponent<ParticleSystem>();
+        rocketParticle.Stop();
         rocketCollider = GetComponent<Collider>();
         rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
         StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
@@ -25,7 +29,14 @@ public class rocket : MonoBehaviour
 
     void FixedUpdate()
     {  
-        transform.Translate(Vector3.up * Time.deltaTime * rocketSpeed);
+        if ( canMove == true ) {
+            transform.Translate (Vector3.up * Time.deltaTime * rocketSpeed);
+        }
+
+        if ( timeBeforePerish != 0 && timeBeforePerish <= Time.time ) {
+            Destroy(gameObject);
+        }
+
     }
 
     private IEnumerator Wait_collider(float duration) //met l'exéction 
@@ -36,9 +47,12 @@ public class rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision !");
         rocketParticle.Play();
-        Destroy(gameObject);
+        Debug.Log("Collision !");
+        canMove = false;
+        gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        timeBeforePerish = Time.time + 1f;
     }
 
     
