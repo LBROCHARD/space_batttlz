@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 101660813680702287}
   - component: {fileID: 101660813680702275}
   m_Layer: 0
-  m_Name: cameraPositionObject
+  m_Name: mousePositionObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
