@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class rocket : MonoBehaviour
 {
+    public int parentID;
+
     public float rocketSpeed = 10f;
     Collider rocketCollider;
-    public float afterSpawnNoCollideTime = 0.5f;
+    public float afterSpawnNoCollideTime = 0.5f; // temps passé sans detecter les collisions
     private ParticleSystem rocketParticle;
 
     private bool canMove = true;
     private float timeBeforePerish = 0f;
 
-    void Start() // Start is called before the first frame update
+    void Start()
     {
         rocketParticle = GetComponent<ParticleSystem>();
         rocketParticle.Stop();
-        rocketCollider = GetComponent<Collider>();
-        rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
-        StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
+        // rocketCollider = GetComponent<Collider>();
+        // rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
+        // StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
     }
 
-    void Update() // Update is called once per frame
+    void Update()
     {
         //Debug.Log( "rotation =" +  toRotation);
 
@@ -39,16 +41,29 @@ public class rocket : MonoBehaviour
 
     }
 
-    private IEnumerator Wait_collider(float duration) //met l'exéction 
-    {
-        yield return new WaitForSeconds(duration);
-        rocketCollider.enabled = true; //réactive l'activation du collider
-    }
+    // private IEnumerator Wait_collider(float duration) //met l'exéction 
+    // {
+    //     yield return new WaitForSeconds(duration);
+    //     rocketCollider.enabled = true; //réactive l'activation du collider
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Player" ) {
+            
+            if (other.gameObject.GetComponent<player>().id != parentID ){
+                Explode();
+            }
+
+        } else {
+            Explode();
+        }
+    }
+
+    private void Explode()
+    {
         rocketParticle.Play();
-        Debug.Log("Collision !");
+        // Debug.Log("Collision !");
         canMove = false;
         gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
