@@ -20,10 +20,14 @@ public class player : MonoBehaviour
     // référence à l'objet rocket
     public GameObject Rocket;
 
+    [SerializeField] private int health = 0; //PV du joueur
+    [SerializeField] private int maxHealth = 100; //PV maximaux
+    [SerializeField] private int testDamage = 10; //dégats de test
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = maxHealth;
     }
 
     void Update()
@@ -32,6 +36,12 @@ public class player : MonoBehaviour
         {
             rocketSpawn();
         }
+
+        if(Input.GetMouseButtonDown(1)) 
+        {
+            DamagePlayer(testDamage);
+        }
+        
     }
 
     void FixedUpdate() 
@@ -84,5 +94,15 @@ public class player : MonoBehaviour
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);
         Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
         GameObject a = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
+    }
+
+    public void DamagePlayer(int damage)
+    {
+        health -= damage;
+
+        if(health < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
