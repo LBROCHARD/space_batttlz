@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class healthBar : MonoBehaviour
 {
     private static Image HealthBarImage;
-    public int playerHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -15,14 +14,10 @@ public class healthBar : MonoBehaviour
         // playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<health>();
     }
 
-    void Update()
-    {
-
-    }
 
     public static void SetHealthBarValue(float value)
     {
-        HealthBarImage.fillAmount = value;
+        HealthBarImage.fillAmount = value / 100;
         if(HealthBarImage.fillAmount < 0.2f)
         {
             SetHealthBarColor(Color.red);
