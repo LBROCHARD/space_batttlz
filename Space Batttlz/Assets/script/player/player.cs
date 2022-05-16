@@ -10,7 +10,6 @@ public class player : MonoBehaviour
     // référence à un mousePositionObject
     public GameObject mousePositionObject;
 
-
     private float speed = 0f; // vitesse actuelle
     [SerializeField] private float maxSpeed = 10f; // vitesse du player
     [SerializeField] private float acceleration = 3f;
@@ -20,10 +19,15 @@ public class player : MonoBehaviour
     // référence à l'objet rocket
     public GameObject Rocket;
 
+    [SerializeField] private int health = 0; //PV du joueur
+    [SerializeField] private int maxHealth = 100; //PV maximaux
+    [SerializeField] private int testDamage = 10; //dégats de test
 
+
+    // Start is called before the first frame update
     void Start()
     {
-        
+        health = maxHealth;
     }
 
     void Update()
@@ -32,6 +36,12 @@ public class player : MonoBehaviour
         {
             rocketSpawn();
         }
+
+        if(Input.GetMouseButtonDown(1)) 
+        {
+            DamagePlayer(testDamage);
+        }
+        
     }
 
     void FixedUpdate() 
@@ -79,5 +89,15 @@ public class player : MonoBehaviour
         Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
         GameObject rocket = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
         rocket.GetComponent<rocket>().parentID = id;
+    }
+
+    public void DamagePlayer(int damage)
+    {
+        health -= damage;
+
+        if(health < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
