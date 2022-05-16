@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    // référence au vaisseau
-    // public GameObject playerObject;
+
+    public int id;
+
     // référence à un mousePositionObject
     public GameObject mousePositionObject;
 
-    // vitesse actuelle (privé)
-    private float speed = 0f;
-    // vitesse du player
-    [SerializeField] private float maxSpeed = 10f;
-    // valeurs de vitesse d'accélération, de décélération et de rotation
+    private float speed = 0f; // vitesse actuelle
+    [SerializeField] private float maxSpeed = 10f; // vitesse du player
     [SerializeField] private float acceleration = 3f;
     [SerializeField] private float deceleration = 8f;
     [SerializeField] private float rotationSpeed = 300f;
+
     // référence à l'objet rocket
     public GameObject Rocket;
 
     [SerializeField] private int health = 0; //PV du joueur
     [SerializeField] private int maxHealth = 100; //PV maximaux
     [SerializeField] private int testDamage = 10; //dégats de test
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,25 +53,19 @@ public class player : MonoBehaviour
 
         // tourne vers "toRotation"
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-
         //ligne qui fonctionne pour se tourner d'un coup vers l'objet
         //transform.LookAt(mousePositionObject.transform);
 
 
         // ---- déplacement vers mousePositionObject ----
-
-        // bonne ligne pour le déplacement
-        //transform.position = Vector3.MoveTowards(transform.position, mousePositionObject.transform.position, (speed / 10) );
         
         // create a forward vector
         Vector3 forward = transform.position + transform.forward;
         Vector3 betterForward = new Vector3(forward.x, 2f, forward.z);
-        // Debug.Log( "forward =" + forward );
-        // Debug.Log( "betterForward =" + betterForward );
 
 
         // ligne pour le déplacement modifié
-        transform.position = Vector3.MoveTowards(transform.position, betterForward, (speed / 10) );
+        transform.position = Vector3.MoveTowards(transform.position, betterForward, speed  * Time.deltaTime );
         
 
         // ---- accélération et décélération ---- 
@@ -93,7 +87,8 @@ public class player : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);
         Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
-        GameObject a = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
+        GameObject rocket = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
+        rocket.GetComponent<rocket>().parentID = id;
     }
 
     public void DamagePlayer(int damage)
