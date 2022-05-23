@@ -27,13 +27,8 @@ public class healthManager : MonoBehaviour
 
         if(health <= 0)
         {
-            Death();
+            FindObjectOfType<gameManager>().Decede();
         }
     }
 
-    void Death()
-    {
-        Debug.Log("Mort !");
-        Destroy(gameObject);
-    }
 }
