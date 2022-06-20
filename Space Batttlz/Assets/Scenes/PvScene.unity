@@ -844,6 +844,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1998143723312004131, guid: 21d062a33db0c464687a95062468f139, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1998143723312004135, guid: 21d062a33db0c464687a95062468f139, type: 3}
       propertyPath: mousePositionObject
       value: 
@@ -854,15 +858,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2031242575607937955, guid: 21d062a33db0c464687a95062468f139, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8580985
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2031242575607937955, guid: 21d062a33db0c464687a95062468f139, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19617271
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2031242575607937955, guid: 21d062a33db0c464687a95062468f139, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.832512
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2031242575607937955, guid: 21d062a33db0c464687a95062468f139, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1001,7 +1005,7 @@ GameObject:
   - component: {fileID: 1157914819}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1020,6 +1024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Deathscreen: {fileID: 783681806}
   player: {fileID: 1699816608}
+  invisible: {fileID: 0}
+  playerCollider: {fileID: 0}
 --- !u!4 &1157914820
 Transform:
   m_ObjectHideFlags: 0

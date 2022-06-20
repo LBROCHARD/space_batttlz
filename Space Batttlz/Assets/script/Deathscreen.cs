@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Deathscreen : MonoBehaviour
 {
+    public GameObject gameManager;
 
     // public string nomScene = "PvScene";
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameObject.SetActive(false);
     }
 
@@ -17,9 +19,14 @@ public class Deathscreen : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void QuitScreen()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void RestartButton()
     {
-        SceneManager.LoadScene("PvScene");
+        gameManager.Respawn();
     }
 
     public void ExitButton()
