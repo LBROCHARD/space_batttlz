@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Deathscreen : MonoBehaviour
 {
-    public GameObject gameManager;
+    private GameManager gameManager;
 
     // public string nomScene = "PvScene";
     void Start()
@@ -26,6 +26,7 @@ public class Deathscreen : MonoBehaviour
 
     public void RestartButton()
     {
+        Debug.Log("reswpawn");
         gameManager.Respawn();
     }
 

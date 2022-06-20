@@ -626,7 +626,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 783681806}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Deathscreen, Assembly-CSharp
         m_MethodName: ExitButton
         m_Mode: 1
@@ -1019,10 +1019,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1157914818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 742ff50a8d2f8b64abd2fa4e70b50cc8, type: 3}
+  m_Script: {fileID: 11500000, guid: b07311508221040459d76628c87cdb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Deathscreen: {fileID: 783681806}
+  healthManager: {fileID: 1699816614}
   player: {fileID: 1699816608}
   invisible: {fileID: 0}
   playerCollider: {fileID: 0}

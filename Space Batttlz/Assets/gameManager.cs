@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-
-    public class GameManager : MonoBehaviour
-    {
         bool estMort = false;
         public Deathscreen Deathscreen;
+        public HealthManager healthManager;
         public GameObject player;
         public MeshRenderer invisible;
         public MeshCollider playerCollider;
@@ -47,11 +42,11 @@ public class GameManager : MonoBehaviour
 
         public void Respawn()
         {
+            healthManager.health = healthManager.maxHealth;
+            estMort = false;
             invisible.enabled = true;
             playerCollider.enabled = true;
             Deathscreen.QuitScreen();
-            estMort = false;
         }
-    }
-
 }
+

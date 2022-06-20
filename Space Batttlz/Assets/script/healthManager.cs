@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class healthManager : MonoBehaviour
+public class HealthManager : MonoBehaviour
 {
-    [SerializeField] private float health = 0f; //PV du joueur
-    [SerializeField] private float maxHealth = 100f; //PV maximaux
-    [SerializeField] private float testDamage = 10f; //dégats de test
+    public float health = 0f; //PV du joueur
+    public float maxHealth = 100f; //PV maximaux
+    public float testDamage = 10f; //dégats de test
+    
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         health = maxHealth;
         healthBar.SetHealthBarValue(health);
     }
@@ -27,7 +30,7 @@ public class healthManager : MonoBehaviour
 
         if(health <= 0)
         {
-            FindObjectOfType<gameManager>().Decede();
+            gameManager.Decede();
         }
     }
 
