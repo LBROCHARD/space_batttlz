@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class mouse_position : MonoBehaviour
 {
-
-    // la serialisation (SerializeField) permet de modifier ce paramètre sur unity tout en le gardant privé
     // ajout d'une camera depuis laquelle on verifie la position de l'objet
-    [SerializeField] private Camera camera;
+    public Camera playerCamera;
     // et ajout d'un layer sur lequel se faire deplacer l'objet
     [SerializeField] private LayerMask layerMask;
-    
 
-    void Start() {
-        
+    void Start() 
+    {
     }
 
     void Update() {
 
         // crée un nouveau rayon, qui part d'un point sur l'écran (ici, la position de la souris) vers l'équivalent dans le monde en 3D
-        Ray mouseRay = camera.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = playerCamera.ScreenPointToRay(Input.mousePosition);
 
         // si le rayon "mouseRay" touche un objet dans le layer renseigné dans "layerMask"
         // (sachant qu'il renvoie l'emplacement où ça à touché dans "rayCastHit", et il vérifie jusqu'à la distance "float.MaxValue" (donc infini))

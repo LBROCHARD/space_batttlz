@@ -7,8 +7,11 @@ public class player : MonoBehaviour
 
     public int id;
 
-    // référence à un mousePositionObject
+    // référence à un mousePositionObject et camera
+    public GameObject mousePositionObjectPrefab;
     public GameObject mousePositionObject;
+    public GameObject cameraObjectPrefab;
+    public GameObject cameraObject;
 
     private float speed = 0f; // vitesse actuelle
     [SerializeField] private float maxSpeed = 10f; // vitesse du player
@@ -27,7 +30,16 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    void Awake () 
+    {
         health = maxHealth;
+        mousePositionObject = Instantiate(mousePositionObjectPrefab);
+        cameraObject = Instantiate(cameraObjectPrefab);
+
+        mousePositionObject.GetComponent<mouse_position>().playerCamera = cameraObject.GetComponent<Camera>();
+        cameraObject.GetComponent<cameraMovement>().target = gameObject.transform;
     }
 
     void Update()

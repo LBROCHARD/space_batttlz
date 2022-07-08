@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1998143723312004129}
   - component: {fileID: 1998143723312004135}
   - component: {fileID: 2960535155874994365}
+  - component: {fileID: 1672276771434388362}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -129,7 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  mousePositionObjectPrefab: {fileID: 4933942782566799351, guid: e622e0e70afde1e449f59e820c912594, type: 3}
   mousePositionObject: {fileID: 0}
+  cameraObjectPrefab: {fileID: 2288601049135066627, guid: 7a06b4ec1275d764c93bb4d21d470bac, type: 3}
+  cameraObject: {fileID: 0}
   maxSpeed: 50
   acceleration: 3
   deceleration: 8
@@ -155,3 +159,37 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 21d062a33db0c464687a95062468f139
   hasSpawned: 0
+--- !u!114 &1672276771434388362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692153827499893017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
