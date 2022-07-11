@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class player : MonoBehaviour
 {
-    public int id;
+    public uint id;
     public bool isMovingEnabled = false;
 
     // référence à un mousePositionObject et camera

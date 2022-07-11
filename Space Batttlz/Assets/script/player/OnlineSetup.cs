@@ -24,5 +24,7 @@ public class OnlineSetup : NetworkBehaviour
             GetComponent<player>().EnableCameraAndMousePosition();
             GetComponent<player>().isMovingEnabled = true;
         }
+
+        GetComponent<player>().id = this.netId;
     }
 }

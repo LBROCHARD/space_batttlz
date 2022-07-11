@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class rocket : MonoBehaviour
 {
-    public int parentID;
+    public uint parentID;
 
     public float rocketSpeed = 10f;
     Collider rocketCollider;

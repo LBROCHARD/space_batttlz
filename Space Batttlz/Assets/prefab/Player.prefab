@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79cbaa2f60204b4e9a6a65362b6f599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
+  id: 0
+  isMovingEnabled: 0
   mousePositionObjectPrefab: {fileID: 4933942782566799351, guid: e622e0e70afde1e449f59e820c912594, type: 3}
   mousePositionObject: {fileID: 0}
   cameraObjectPrefab: {fileID: 2288601049135066627, guid: 7a06b4ec1275d764c93bb4d21d470bac, type: 3}
