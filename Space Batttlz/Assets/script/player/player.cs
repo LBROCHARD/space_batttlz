@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-
     public int id;
+    public bool isMovingEnabled = false;
 
     // référence à un mousePositionObject et camera
     public GameObject mousePositionObjectPrefab;
@@ -32,14 +32,9 @@ public class player : MonoBehaviour
     {
     }
 
-    void Awake () 
+    void Awake () // appelé quand le script est instancié
     {
         health = maxHealth;
-        mousePositionObject = Instantiate(mousePositionObjectPrefab);
-        cameraObject = Instantiate(cameraObjectPrefab);
-
-        mousePositionObject.GetComponent<mouse_position>().playerCamera = cameraObject.GetComponent<Camera>();
-        cameraObject.GetComponent<cameraMovement>().target = gameObject.transform;
     }
 
     void Update()
@@ -58,40 +53,43 @@ public class player : MonoBehaviour
 
     void FixedUpdate() 
     {
-        // ---- rotation vers mousePositionObject ----
-
-        // calcule la différence entre la position du "mousePositionObject" et du player
-        Quaternion toRotation = Quaternion.LookRotation(mousePositionObject.transform.position - transform.position);
-
-        // tourne vers "toRotation"
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        //ligne qui fonctionne pour se tourner d'un coup vers l'objet
-        //transform.LookAt(mousePositionObject.transform);
-
-
-        // ---- déplacement vers mousePositionObject ----
-        
-        // create a forward vector
-        Vector3 forward = transform.position + transform.forward;
-        Vector3 betterForward = new Vector3(forward.x, 2f, forward.z);
-
-
-        // ligne pour le déplacement modifié
-        transform.position = Vector3.MoveTowards(transform.position, betterForward, speed  * Time.deltaTime );
-        
-
-        // ---- accélération et décélération ---- 
-
-        if (Input.GetKey("space"))
+        if ( isMovingEnabled)
         {
-            // tant que espace est préssé, "speed" augmente lentement vers "maxSpeed" à la vitesse de 3 * Time.deltaTime
-            speed = Mathf.SmoothStep(speed, maxSpeed, acceleration * Time.deltaTime);
+            // ---- rotation vers mousePositionObject ----
+
+            // calcule la différence entre la position du "mousePositionObject" et du player
+            Quaternion toRotation = Quaternion.LookRotation(mousePositionObject.transform.position - transform.position);
+
+            // tourne vers "toRotation"
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            //ligne qui fonctionne pour se tourner d'un coup vers l'objet
+            //transform.LookAt(mousePositionObject.transform);
+
+
+            // ---- déplacement vers mousePositionObject ----
+            
+            // create a forward vector
+            Vector3 forward = transform.position + transform.forward;
+            Vector3 betterForward = new Vector3(forward.x, 2f, forward.z);
+
+
+            // ligne pour le déplacement modifié
+            transform.position = Vector3.MoveTowards(transform.position, betterForward, speed  * Time.deltaTime );
+            
+
+            // ---- accélération et décélération ---- 
+
+            if (Input.GetKey("space"))
+            {
+                // tant que espace est préssé, "speed" augmente lentement vers "maxSpeed" à la vitesse de 3 * Time.deltaTime
+                speed = Mathf.SmoothStep(speed, maxSpeed, acceleration * Time.deltaTime);
+            }
+            else if (Input.GetKey("space") == false)
+            {
+                // tant que espace n'est pas préssé, "speed" devient lentement 0 à la vitesse de 8 * Time.deltaTime
+                speed = Mathf.SmoothStep(speed, 0f, deceleration * Time.deltaTime);
+            } 
         }
-        else if (Input.GetKey("space") == false)
-        {
-            // tant que espace n'est pas préssé, "speed" devient lentement 0 à la vitesse de 8 * Time.deltaTime
-            speed = Mathf.SmoothStep(speed, 0f, deceleration * Time.deltaTime);
-        } 
 
     }
 
@@ -111,5 +109,14 @@ public class player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void EnableCameraAndMousePosition()
+    {
+        mousePositionObject = Instantiate(mousePositionObjectPrefab);
+        cameraObject = Instantiate(cameraObjectPrefab);
+
+        mousePositionObject.GetComponent<mouse_position>().playerCamera = cameraObject.GetComponent<Camera>();
+        cameraObject.GetComponent<cameraMovement>().target = gameObject.transform;
     }
 }
