@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class Menu : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Menu : MonoBehaviour
     [SerializeField] Button joinBtn;
     [SerializeField] Text usernameText;
     [SerializeField] Button goBtn;
+    public NetworkManager manager;
 
     private bool isHosting;
     private string ip;
@@ -41,6 +43,7 @@ public class Menu : MonoBehaviour
     public void ServerOnly()
     {
         Debug.Log("Server only");
+        manager.StartServer();
     }
     public void Quit()
     {
@@ -58,10 +61,17 @@ public class Menu : MonoBehaviour
         if (isHosting)
         {
             Debug.Log("hosting, username = " + usernameText.text);
+            manager.StartHost();
+            menu.gameObject.SetActive(false);
+            username.gameObject.SetActive(false);
         }
         else
         {
             Debug.Log("joining ip = " + ip + ", username = " + usernameText.text);
+            manager.networkAddress = ip;
+            manager.StartClient();
+            menu.gameObject.SetActive(false);
+            username.gameObject.SetActive(false);
         }
     }
 
