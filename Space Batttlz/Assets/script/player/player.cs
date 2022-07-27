@@ -100,6 +100,7 @@ public class player : MonoBehaviour
         Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
         GameObject rocket = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
         rocket.GetComponent<rocket>().parentID = id;
+        NetworkServer.Spawn(rocket);
     }
 
     public void DamagePlayer(int damage)
@@ -109,6 +110,7 @@ public class player : MonoBehaviour
         if(health < 1)
         {
             Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 

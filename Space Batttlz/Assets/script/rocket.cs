@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class rocket : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class rocket : MonoBehaviour
     {
         rocketParticle = GetComponent<ParticleSystem>();
         rocketParticle.Stop();
+    }
+    void OnStartClient()
+    {
+        rocketParticle = GetComponent<ParticleSystem>();
+        rocketParticle.Stop();
         // rocketCollider = GetComponent<Collider>();
         // rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
         // StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
@@ -26,7 +32,6 @@ public class rocket : MonoBehaviour
     void Update()
     {
         //Debug.Log( "rotation =" +  toRotation);
-
     }
 
     void FixedUpdate()
@@ -38,7 +43,6 @@ public class rocket : MonoBehaviour
         if ( timeBeforePerish != 0 && timeBeforePerish <= Time.time ) {
             Destroy(gameObject);
         }
-
     }
 
     // private IEnumerator Wait_collider(float duration) //met l'exéction 
@@ -50,11 +54,9 @@ public class rocket : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" ) {
-            
             if (other.gameObject.GetComponent<player>().id != parentID ){
                 Explode();
             }
-
         } else {
             Explode();
         }
