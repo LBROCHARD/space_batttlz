@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class rocket : MonoBehaviour
+public class rocket : NetworkBehaviour
 {
-    public uint parentID;
+    [SyncVar] public uint parentID;
 
     public float rocketSpeed = 10f;
     Collider rocketCollider;
@@ -15,18 +15,20 @@ public class rocket : MonoBehaviour
     private bool canMove = true;
     private float timeBeforePerish = 0f;
 
-    void Start()
-    {
-        rocketParticle = GetComponent<ParticleSystem>();
-        rocketParticle.Stop();
-    }
-    void OnStartClient()
+    // void Start()
+    // {
+    //     rocketParticle = GetComponent<ParticleSystem>();
+    //     rocketParticle.Stop();
+    //     Debug.Log("Start()");
+    // }
+    public void Awake()
     {
         rocketParticle = GetComponent<ParticleSystem>();
         rocketParticle.Stop();
         // rocketCollider = GetComponent<Collider>();
         // rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
         // StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
+        Debug.Log("Awake()");
     }
 
     void Update()
@@ -42,6 +44,7 @@ public class rocket : MonoBehaviour
 
         if ( timeBeforePerish != 0 && timeBeforePerish <= Time.time ) {
             Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 
@@ -53,6 +56,7 @@ public class rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         if (other.gameObject.tag == "Player" ) {
             if (other.gameObject.GetComponent<player>().id != parentID ){
                 Explode();
@@ -64,6 +68,8 @@ public class rocket : MonoBehaviour
 
     private void Explode()
     {
+        Debug.Log("Explode()");
+
         rocketParticle.Play();
         // Debug.Log("Collision !");
         canMove = false;
