@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1998143723312004129}
   - component: {fileID: 1998143723312004135}
   - component: {fileID: 4460130920705430139}
+  - component: {fileID: 6117935182781646910}
   - component: {fileID: 2960535155874994365}
   - component: {fileID: 1672276771434388362}
   m_Layer: 7
@@ -130,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79cbaa2f60204b4e9a6a65362b6f599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   id: 0
   isMovingEnabled: 0
   mousePositionObjectPrefab: {fileID: 4933942782566799351, guid: e622e0e70afde1e449f59e820c912594, type: 3}
@@ -160,6 +163,21 @@ MonoBehaviour:
   syncInterval: 0.1
   componentsToDisable:
   - {fileID: 1998143723312004135}
+--- !u!114 &6117935182781646910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692153827499893017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2289b764adc114d9c737a07132d8e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  testDamage: 10
 --- !u!114 &2960535155874994365
 MonoBehaviour:
   m_ObjectHideFlags: 0

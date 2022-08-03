@@ -26,6 +26,7 @@ public class player : NetworkBehaviour
     [SerializeField] private int health = 0; //PV du joueur
     [SerializeField] private int maxHealth = 100; //PV maximaux
     [SerializeField] private int testDamage = 10; //dégats de test
+    public HealthManager healthManager;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +35,12 @@ public class player : NetworkBehaviour
 
     void Awake () // appelé quand le script est instancié
     {
+        healthManager = GetComponent<HealthManager>();
+        healthManager.player = gameObject;
+        healthManager.healthManager = GetComponent<HealthManager>();
+        healthManager.invisible = GetComponent<MeshRenderer>();
+        healthManager.playerCollider = GetComponent<MeshCollider>();
         health = maxHealth;
-        Debug.Log("Awake de player");
     }
 
     void Update()
@@ -43,11 +48,6 @@ public class player : NetworkBehaviour
         if(Input.GetMouseButtonDown(0)) 
         {
             CmdRocketSpawn(id);
-        }
-
-        if(Input.GetMouseButtonDown(1)) 
-        {
-            DamagePlayer(testDamage);
         }
         
     }
@@ -103,17 +103,6 @@ public class player : NetworkBehaviour
         rocket.GetComponent<rocket>().parentID = _parentID;
         rocket.GetComponent<rocket>().Awake();
         NetworkServer.Spawn(rocket);
-    }
-
-    public void DamagePlayer(int damage)
-    {
-        health -= damage;
-
-        if(health < 1)
-        {
-            Destroy(gameObject);
-            NetworkServer.Destroy(gameObject);
-        }
     }
 
     public void EnableCameraAndMousePosition()
