@@ -27,7 +27,6 @@ public class player : NetworkBehaviour
     [SerializeField] private int maxHealth = 100; //PV maximaux
     [SerializeField] private int testDamage = 10; //dégats de test
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -44,11 +43,6 @@ public class player : NetworkBehaviour
         if(Input.GetMouseButtonDown(0)) 
         {
             CmdRocketSpawn(id);
-        }
-
-        if(Input.GetMouseButtonDown(1)) 
-        {
-            DamagePlayer(testDamage);
         }
         
     }
