@@ -46,6 +46,7 @@ public class rocket : NetworkBehaviour
             Destroy(gameObject);
             NetworkServer.Destroy(gameObject);
         }
+
     }
 
     // private IEnumerator Wait_collider(float duration) //met l'exéction 

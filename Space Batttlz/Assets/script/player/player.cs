@@ -26,6 +26,7 @@ public class player : NetworkBehaviour
     [SerializeField] private int health = 0; //PV du joueur
     [SerializeField] private int maxHealth = 100; //PV maximaux
     [SerializeField] private int testDamage = 10; //dégats de test
+    private HealthManager healthManager;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,8 @@ public class player : NetworkBehaviour
     {
         health = maxHealth;
         Debug.Log("Awake de player");
+        GameObject.Find("GameManager").GetComponent<GameManager>().SetupPlayer(this.gameObject);
+        healthManager = GetComponent<HealthManager>();
     }
 
     void Update()
@@ -87,6 +90,16 @@ public class player : NetworkBehaviour
             } 
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "rocket" ) 
+        {
+            if (other.gameObject.GetComponent<rocket>().parentID != id ){
+                healthManager.GetDamages() ;
+            }
+        }
     }
 
     [Command]

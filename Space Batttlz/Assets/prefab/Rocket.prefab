@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1497858695538213347}
   - component: {fileID: -8982531550166203120}
   - component: {fileID: -1801391848709476363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc24245c9bec01a48ad2f82e33053e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   parentID: 0
   rocketSpeed: 50
   afterSpawnNoCollideTime: 0.5

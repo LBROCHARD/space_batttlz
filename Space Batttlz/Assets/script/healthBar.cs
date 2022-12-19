@@ -5,24 +5,24 @@ using UnityEngine.UI;
 
 public class healthBar : MonoBehaviour
 {
-    private static Image HealthBarImage;
+    private static SpriteRenderer HealthBarImage;
 
     // Start is called before the first frame update
     void Start()
     {
-        HealthBarImage = GetComponent<Image>();
+        HealthBarImage = GetComponent<SpriteRenderer>();
         // playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<health>();
     }
 
 
     public static void SetHealthBarValue(float value)
     {
-        HealthBarImage.fillAmount = value / 100;
-        if(HealthBarImage.fillAmount < 0.2f)
+        HealthBarImage.size = new Vector2(value / 10 , 1);
+        if(value < 20f)
         {
             SetHealthBarColor(Color.red);
         }
-        else if(HealthBarImage.fillAmount < 0.4f)
+        else if(value < 40f)
         {
             SetHealthBarColor(Color.yellow);
         }
@@ -32,10 +32,10 @@ public class healthBar : MonoBehaviour
         }
     }
 
-    public static float GetHealthBarValue()
-    {
-        return HealthBarImage.fillAmount;
-    }
+    // public static float GetHealthBarValue()
+    // {
+    //     return HealthBarImage.fillAmount;
+    // }
 
     public static void SetHealthBarColor(Color healthColor)
     {

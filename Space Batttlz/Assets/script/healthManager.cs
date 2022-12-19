@@ -24,14 +24,25 @@ public class HealthManager : MonoBehaviour
     {
         if(Input.GetKeyDown("t"))
         {
-            health -= testDamage;
-            healthBar.SetHealthBarValue(health);
+            GetDamages();
         }
 
         if(health <= 0)
         {
             gameManager.Decede();
         }
+    }
+
+    public void GetDamages()
+    {
+        health -= testDamage;
+        healthBar.SetHealthBarValue(health);
+    }
+
+    public void Respawn()
+    {
+        health = maxHealth;
+        healthBar.SetHealthBarValue(maxHealth);
     }
 
 }
