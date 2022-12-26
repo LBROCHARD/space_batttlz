@@ -109,7 +109,7 @@ public class player : NetworkBehaviour
         Vector3 spawnRotation = new Vector3(90, transform.eulerAngles.y, 0);
         GameObject rocket = Instantiate(Rocket, spawnPosition, Quaternion.Euler(spawnRotation));
         rocket.GetComponent<rocket>().parentID = _parentID;
-        rocket.GetComponent<rocket>().Awake();
+        rocket.GetComponent<rocket>().RocketAwake();
         NetworkServer.Spawn(rocket);
     }
 

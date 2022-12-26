@@ -14,21 +14,24 @@ public class rocket : NetworkBehaviour
 
     private bool canMove = true;
     private float timeBeforePerish = 0f;
+    private bool isLocal;
 
-    // void Start()
-    // {
-    //     rocketParticle = GetComponent<ParticleSystem>();
-    //     rocketParticle.Stop();
-    //     Debug.Log("Start()");
-    // }
-    public void Awake()
+    public void RocketAwake()
     {
+        Debug.Log("parentID:" + parentID);
         rocketParticle = GetComponent<ParticleSystem>();
         rocketParticle.Stop();
         // rocketCollider = GetComponent<Collider>();
         // rocketCollider.enabled = false; //désactive le collider de la rocket au moment où elle spawn
         // StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
-        Debug.Log("Awake()");
+        if (parentID != GameManager.localPlayer.GetComponent<player>().id) // if wasn't launched by the localPlayer
+        {
+            Debug.Log("I ain't local rocket cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+        }
+        else 
+        {
+            Debug.Log("I'm local rocket ! cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+        }
     }
 
     void Update()
@@ -57,7 +60,7 @@ public class rocket : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
+        // Debug.Log("OnTriggerEnter");
         if (other.gameObject.tag == "Player" ) {
             if (other.gameObject.GetComponent<player>().id != parentID ){
                 Explode();
@@ -69,8 +72,7 @@ public class rocket : NetworkBehaviour
 
     private void Explode()
     {
-        Debug.Log("Explode()");
-
+        // Debug.Log("Explode()");
         rocketParticle.Play();
         // Debug.Log("Collision !");
         canMove = false;
