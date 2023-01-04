@@ -58,12 +58,21 @@ public class rocket : NetworkBehaviour
     //     rocketCollider.enabled = true; //réactive l'activation du collider
     // }
 
+    [Client]
     private void OnTriggerEnter(Collider other)
     {
         // Debug.Log("OnTriggerEnter");
         if (other.gameObject.tag == "Player" ) {
             if (other.gameObject.GetComponent<player>().id != parentID ){
                 Explode();
+                if (parentID != GameManager.localPlayer.GetComponent<player>().id) // if wasn't launched by the localPlayer
+                {
+                    Debug.Log("I ain't local rocket cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+                }
+                else  // if was launched by the player
+                {
+                    Debug.Log("I'm local rocket ! cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+                }
             }
         } else {
             Explode();

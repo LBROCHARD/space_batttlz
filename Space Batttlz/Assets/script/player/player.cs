@@ -102,7 +102,7 @@ public class player : NetworkBehaviour
         }
     }
 
-    [Command]
+    // [Command]
     void CmdRocketSpawn(uint _parentID) //fait spawner une entité rocket à l'emplacement du joueur
     {
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);

@@ -21,6 +21,7 @@ public class OnlineSetup : NetworkBehaviour
         }
         else
         {
+            Debug.Log("local player spawned !");
             GameManager.localPlayer = gameObject;
             GetComponent<player>().EnableCameraAndMousePosition();
             GetComponent<player>().isMovingEnabled = true;
