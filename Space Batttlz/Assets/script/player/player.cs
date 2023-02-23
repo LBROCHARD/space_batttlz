@@ -33,21 +33,21 @@ public class player : NetworkBehaviour
     {
     }
 
-    void Awake () // appelé quand le script est instancié
+    void Awake () // THERE IS NO AWALE IN MIRROR
     {
         health = maxHealth;
-        Debug.Log("Awake de player");
+        Debug.Log("Awake de player with id=" + id);
         GameObject.Find("GameManager").GetComponent<GameManager>().SetupPlayer(this.gameObject);
         healthManager = GetComponent<HealthManager>();
     }
 
     void Update()
     {
+        Debug.Log("player id=" + id);
         if(Input.GetMouseButtonDown(0)) 
         {
             CmdRocketSpawn(id);
         }
-        
     }
 
     void FixedUpdate() 
@@ -89,7 +89,6 @@ public class player : NetworkBehaviour
                 speed = Mathf.SmoothStep(speed, 0f, deceleration * Time.deltaTime);
             } 
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -97,12 +96,12 @@ public class player : NetworkBehaviour
         if (other.gameObject.tag == "rocket" ) 
         {
             if (other.gameObject.GetComponent<rocket>().parentID != id ){
-                healthManager.GetDamages() ;
+                healthManager.GetDamages();
             }
         }
     }
 
-    // [Command]
+    [Command]
     void CmdRocketSpawn(uint _parentID) //fait spawner une entité rocket à l'emplacement du joueur
     {
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z);

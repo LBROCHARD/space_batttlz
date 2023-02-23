@@ -26,17 +26,18 @@ public class rocket : NetworkBehaviour
         // StartCoroutine(Wait_collider(afterSpawnNoCollideTime));
         if (parentID != GameManager.localPlayer.GetComponent<player>().id) // if wasn't launched by the localPlayer
         {
-            Debug.Log("I ain't local rocket cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+            Debug.LogError("I ain't local rocket cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
         }
         else 
         {
-            Debug.Log("I'm local rocket ! cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
+            Debug.LogError("I'm local rocket ! cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
         }
     }
 
     void Update()
     {
         //Debug.Log( "rotation =" +  toRotation);
+        Debug.Log("parentID:" + parentID);
     }
 
     void FixedUpdate()
