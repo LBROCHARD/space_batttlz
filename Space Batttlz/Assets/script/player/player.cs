@@ -5,7 +5,7 @@ using Mirror;
 
 public class player : NetworkBehaviour
 {
-    public uint id;
+    // public uint id;
     public bool isMovingEnabled = false;
 
     // référence à un mousePositionObject et camera
@@ -33,20 +33,20 @@ public class player : NetworkBehaviour
     {
     }
 
-    void Awake () // THERE IS NO AWALE IN MIRROR
+    void Awake () // THERE IS NO AWAKE IN MIRROR
     {
         health = maxHealth;
-        Debug.Log("Awake de player with id=" + id);
-        GameObject.Find("GameManager").GetComponent<GameManager>().SetupPlayer(this.gameObject);
+        Debug.Log("Awake de player with id=" + this.netId);
+        GameObject.Find("GameManager").GetComponent<GameManager>()?.SetupPlayer(this.gameObject);
         healthManager = GetComponent<HealthManager>();
     }
 
     void Update()
     {
-        Debug.Log("player id=" + id);
+        Debug.Log("player id=" + this.netId);
         if(Input.GetMouseButtonDown(0)) 
         {
-            CmdRocketSpawn(id);
+            CmdRocketSpawn(this.netId);
         }
     }
 
@@ -95,7 +95,7 @@ public class player : NetworkBehaviour
     {
         if (other.gameObject.tag == "rocket" ) 
         {
-            if (other.gameObject.GetComponent<rocket>().parentID != id ){
+            if (other.gameObject.GetComponent<rocket>().parentID != this.netId ){
                 healthManager.GetDamages();
             }
         }

@@ -27,6 +27,6 @@ public class OnlineSetup : NetworkBehaviour
             GetComponent<player>().isMovingEnabled = true;
         }
 
-        GetComponent<player>().id = this.netId;
+        // GetComponent<player>().id = this.netId;
     }
 }
