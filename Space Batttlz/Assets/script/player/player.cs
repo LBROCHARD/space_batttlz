@@ -28,12 +28,7 @@ public class player : NetworkBehaviour
     [SerializeField] private int testDamage = 10; //dégats de test
     private HealthManager healthManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    void Awake () // THERE IS NO AWAKE IN MIRROR
+    void AwakePlayer () // THERE IS NO AWAKE IN MIRROR
     {
         health = maxHealth;
         Debug.Log("Awake de player with id=" + this.netId);

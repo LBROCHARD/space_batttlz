@@ -10,6 +10,9 @@ public class OnlineSetup : NetworkBehaviour
     [SerializeField]
     Behaviour[] componentsToDisable;
 
+    // reference to the debug Text TextMesh
+    [SerializeField] private TextMesh debugText;
+
     void Start() 
     {
         if (!isLocalPlayer)
@@ -28,5 +31,9 @@ public class OnlineSetup : NetworkBehaviour
         }
 
         // GetComponent<player>().id = this.netId;
+    }
+
+    private void Update() {
+        debugText.text = this.netId.ToString();
     }
 }

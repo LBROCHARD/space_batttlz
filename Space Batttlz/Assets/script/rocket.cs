@@ -16,6 +16,9 @@ public class rocket : NetworkBehaviour
     private float timeBeforePerish = 0f;
     private bool isLocal;
 
+    // reference to the debug Text TextMesh
+    [SerializeField] private TextMesh debugText;
+
     public void RocketAwake()
     {
         Debug.Log("parentID:" + parentID);
@@ -32,11 +35,19 @@ public class rocket : NetworkBehaviour
         {
             Debug.Log("I'm local rocket ! cause i'm :" + parentID ); // + " and the local is :" + GameManager.localPlayer.GetComponent<player>().id);
         }
+        // debugText.text = parentID.ToString();
     }
+
+    bool isFirstTime = true;
 
     void Update()
     {
+        if(isFirstTime)
+        {
+            isFirstTime = false;
+        }
         //Debug.Log( "rotation =" +  toRotation);
+        debugText.text = parentID.ToString();
     }
 
     void FixedUpdate()
@@ -46,33 +57,19 @@ public class rocket : NetworkBehaviour
         }
 
         if ( timeBeforePerish != 0 && timeBeforePerish <= Time.time ) {
-            Destroy(gameObject);
+            // Destroy(gameObject);
             NetworkServer.Destroy(gameObject);
         }
-
     }
 
-    // private IEnumerator Wait_collider(float duration) //met l'exéction 
-    // {
-    //     yield return new WaitForSeconds(duration);
-    //     rocketCollider.enabled = true; //réactive l'activation du collider
-    // }
-
-    [Client]
+    [Client]        
     private void OnTriggerEnter(Collider other)
     {
         // Debug.Log("OnTriggerEnter");
         if (other.gameObject.tag == "Player" ) {
-            if (other.gameObject.GetComponent<player>().netId != parentID ){
+            if (other.gameObject.GetComponent<player>().netId != parentID )
+            {
                 Explode();
-                if (parentID != GameManager.localPlayer.GetComponent<player>().netId) // if wasn't launched by the localPlayer
-                {
-                    Debug.Log("I ain't local rocket cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().netId);
-                }
-                else  // if was launched by the player
-                {
-                    Debug.Log("I'm local rocket ! cause i'm :" + parentID + " and the local is :" + GameManager.localPlayer.GetComponent<player>().netId);
-                }
             }
         } else {
             Explode();
@@ -82,7 +79,7 @@ public class rocket : NetworkBehaviour
     private void Explode()
     {
         // Debug.Log("Explode()");
-        rocketParticle.Play();
+        rocketParticle?.Play();
         // Debug.Log("Collision !");
         canMove = false;
         gameObject.GetComponent<Renderer>().enabled = false;
@@ -90,5 +87,4 @@ public class rocket : NetworkBehaviour
         timeBeforePerish = Time.time + 1f;
     }
 
-    
 }
