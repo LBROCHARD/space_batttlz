@@ -47,7 +47,7 @@ public class player : NetworkBehaviour
 
     void FixedUpdate() 
     {
-        if ( isMovingEnabled)
+        if (isMovingEnabled)
         {
             // ---- rotation vers mousePositionObject ----
 
@@ -90,7 +90,8 @@ public class player : NetworkBehaviour
     {
         if (other.gameObject.tag == "rocket" ) 
         {
-            if (other.gameObject.GetComponent<rocket>().parentID != this.netId ){
+            if (other.gameObject.GetComponent<rocket>().parentID != this.netId )
+            {
                 healthManager.GetDamages();
             }
         }
